@@ -33,10 +33,10 @@ namespace WindowsFormsApplication1
                 txtMeta.Text = site.Meta;
                 txtFavicon.Text = site.FavIcon;
             }
-
-            txtLanguage.Text = setting.Languages.LangName;
-
+            
             LoadCategories();
+
+            LoadLanguages();
         }
 
         private void btnNext_Click_1(object sender, EventArgs e)
@@ -95,15 +95,12 @@ namespace WindowsFormsApplication1
                     MessageBox.Show("Lütfen alanı doldurunuz");
                     return;
                 }
-
-                setting.Languages.LangName = txtLanguage.Text;
-
-
+                
                 if (Settings.SerializeToXml(setting))
                 {
-                    foreach (var item in txtLanguage.Text.Split(';'))
+                    foreach (var item in setting.Languages)
                     {
-                        string newPath = System.IO.Path.Combine(Application.StartupPath + "\\" + txtSiteName.Text, item);
+                        string newPath = System.IO.Path.Combine(Application.StartupPath + "\\" + txtSiteName.Text, item.LangName);
                         System.IO.Directory.CreateDirectory(newPath);
                     }
                 }
@@ -116,13 +113,14 @@ namespace WindowsFormsApplication1
                 {
                     foreach (var category in setting.Categories)
                     {
-                        foreach (var item in txtLanguage.Text.Split(';'))
+                        foreach (var item in setting.Languages)
                         {
-                            string newPath = System.IO.Path.Combine(Application.StartupPath + "\\" + txtSiteName.Text + "\\" + item, category.CategoryName);
+                            string newPath = System.IO.Path.Combine(Application.StartupPath + "\\" + txtSiteName.Text + "\\" + item.LangName, category.CategoryName);
                             System.IO.Directory.CreateDirectory(newPath);
                         }
                     }
-                    tabControl1.SelectTab(tabPage4);
+                    MessageBox.Show("Kayıt Başarıyla Yapıldı");
+                    Close();
                 }
             }
         }
@@ -158,6 +156,43 @@ namespace WindowsFormsApplication1
             var category = setting.Categories.FirstOrDefault(w => w.CategoryName == lstCategory.SelectedItem.ToString());
             if (category != null)
                 setting.Categories.Remove(category);
+
+            LoadCategories();
+        }
+
+        private void btnLangAdd_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtLanguage.Text.Trim()))
+            {
+                MessageBox.Show("Lütfen alanı doldurunuz");
+                return;
+            }
+
+            setting.Languages.Add(new Settings.Language()
+            {
+                LangName = txtLanguage.Text
+            });
+
+            LoadLanguages();
+            txtLanguage.Clear();
+        }
+
+        private void LoadLanguages()
+        {
+            lstLangs.Items.Clear();
+            foreach (var item in setting.Languages)
+            {
+                lstLangs.Items.Add(item.LangName);
+            }
+        }
+
+        private void btnDeleteLang_Click(object sender, EventArgs e)
+        {
+            var lang = setting.Languages.FirstOrDefault(w => w.LangName == lstLangs.SelectedItem.ToString());
+            if (lang != null)
+                setting.Languages.Remove(lang);
+
+            LoadLanguages();
         }
     }
 }

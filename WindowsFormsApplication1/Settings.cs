@@ -13,7 +13,7 @@ namespace WindowsFormsApplication1
         {
             public User User = new User();
             public List<Site> Sites = new List<Site>();
-            public Language Languages = new Language();
+            public List<Language> Languages = new List<Language>();
             public List<Category> Categories = new List<Category>();
             public List<FileInfo> FileInfos = new List<FileInfo>();
             public int ImageCounter { get; set; }

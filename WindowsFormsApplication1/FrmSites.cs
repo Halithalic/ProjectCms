@@ -67,7 +67,8 @@ namespace WindowsFormsApplication1
                         FileInfo fileInfo = new FileInfo(item);
 
                         //Console.WriteLine(fileInfo.LastWriteTime);
-
+                        if (Path.GetFileName(item)[0].ToString() == "~") continue;
+                        
                         if (!setting.FileInfos.Any(w => item.Contains(w.FilePath)))
                         {
                             setting.FileInfos.Add(new Settings.FileInfo
@@ -116,7 +117,7 @@ namespace WindowsFormsApplication1
                     {
                         var lang = langItem.Remove(0, (siteItem).Length + 1);
                         //Console.WriteLine(langItem);
-                        if (setting.Languages.LangName.Contains(lang))
+                        if (setting.Languages.Any(w=> lang.Contains(w.LangName)))
                         {
                             string[] array3 = Directory.GetDirectories(Application.StartupPath + "\\" + site + "\\" + lang);
 
@@ -191,8 +192,13 @@ namespace WindowsFormsApplication1
                     }
                     else
                     {
-                        setting.FileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName)).ChangeDateTime = fileInfo.LastWriteTime;
-                        setting.FileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName)).Changed = true;
+                        if (fileInfo.LastWriteTime !=
+                            setting.FileInfos.FirstOrDefault(w => e.FullPath.Contains(w.FilePath)).ChangeDateTime)
+                        {
+                            setting.FileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName)).ChangeDateTime =
+                                fileInfo.LastWriteTime;
+                            setting.FileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName)).Changed = true;
+                        }
                     }
 
                     if (e.ChangeType == WatcherChangeTypes.Deleted)
@@ -225,8 +231,13 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
-                    setting.FileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName)).ChangeDateTime = fileInfo.LastWriteTime;
-                    setting.FileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName)).Changed = true;
+                    if (fileInfo.LastWriteTime !=
+                        setting.FileInfos.FirstOrDefault(w => e.FullPath.Contains(w.FilePath)).ChangeDateTime)
+                    {
+                        setting.FileInfos.FirstOrDefault(w => e.FullPath.Contains(w.FilePath)).ChangeDateTime =
+                            fileInfo.LastWriteTime;
+                        setting.FileInfos.FirstOrDefault(w => e.FullPath.Contains(w.FilePath)).Changed = true;
+                    }
                 }
                 Console.WriteLine("File: {0} renamed to {1}", e.OldName, e.Name);
             }
@@ -287,7 +298,7 @@ namespace WindowsFormsApplication1
         private void timer1_Tick(object sender, EventArgs e)
         {
             lblChangeDocCount.Text = "Değişen Dosya Sayısı : " + setting.FileInfos.Where(w=> w.Changed).Count().ToString();
-            if (i == 10)
+            if (i == 5)
             {
                 Settings.SerializeToXml(setting);
                 i = 0;
@@ -299,6 +310,7 @@ namespace WindowsFormsApplication1
         {
             FrmConvertHtml convertHtml = new FrmConvertHtml(setting);
             convertHtml.ShowDialog();
+            LoadSites();
         }
 
         private void button1_Click(object sender, EventArgs e)
