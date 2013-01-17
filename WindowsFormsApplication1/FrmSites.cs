@@ -17,10 +17,7 @@ namespace WindowsFormsApplication1
     {
         Settings.Setting setting = new Settings.Setting();
         List<Settings.Site> sites = new List<Settings.Site>();
-
-        private int ChangeFileCount = 0;
-        private int CreateFileCount = 0;
-        private List<string> fileNames = new List<string>();
+        
         public FrmSites()
         {
             InitializeComponent();
@@ -32,14 +29,77 @@ namespace WindowsFormsApplication1
             //login.ShowDialog();
 
             lblChangeDocCount.Text = "Değişen Dosya Sayısı : 0";
-            lblCreateDocCount.Text = "Eklenen Dosya Sayısı : 0";
+            
             timer1.Enabled = true;
-            Run();
+            FileSystemWatcher();
+            PathAnalyzer();
         }
+
+        #region PathAnalyzer
+        private void PathAnalyzer()
+        {
+            foreach (var site in setting.Sites)
+            {
+                string[] filePathDocxs = Directory.GetFiles(Application.StartupPath + "\\" + site.SiteName, "*.docx", SearchOption.AllDirectories);
+
+                if (filePathDocxs.Count() <= setting.FileInfos.Count)
+                {
+                    List<Settings.FileInfo> removedFiles = new List<Settings.FileInfo>();
+
+                    foreach (var item in setting.FileInfos)
+                    {
+                        if (!File.Exists(item.FilePath))
+                        {
+                            removedFiles.Add(item);
+                        }
+                    }
+
+                    foreach (var removedFile in removedFiles)
+                    {
+                        setting.FileInfos.Remove(removedFile);
+                    }
+                }
+
+                foreach (var item in filePathDocxs)
+                {
+                    if (!item.Contains("\\s\\img\\"))
+                    {
+                        FileInfo fileInfo = new FileInfo(item);
+
+                        //Console.WriteLine(fileInfo.LastWriteTime);
+
+                        if (!setting.FileInfos.Any(w => item.Contains(w.FilePath)))
+                        {
+                            setting.FileInfos.Add(new Settings.FileInfo
+                                {
+                                    FilePath = item,
+                                    FileName = Path.GetFileName(item),
+                                    ChangeDateTime = fileInfo.LastWriteTime,
+                                    Changed = true
+                                });
+                        }
+                        else
+                        {
+                            if (fileInfo.LastWriteTime !=
+                                setting.FileInfos.FirstOrDefault(w => item.Contains(w.FilePath)).ChangeDateTime)
+                            {
+                                setting.FileInfos.FirstOrDefault(w => item.Contains(w.FilePath)).ChangeDateTime =
+                                    fileInfo.LastWriteTime;
+                                setting.FileInfos.FirstOrDefault(w => item.Contains(w.FilePath)).Changed = true;
+                            }
+                        }
+                        //Console.WriteLine("Docx - " + Path.GetFileName(item) + " -- " + item);
+                    }
+                }
+            }
+
+            Settings.SerializeToXml(setting);
+        }
+        #endregion
 
         #region FileSystemWatcher
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-        private void Run()
+        private void FileSystemWatcher()
         {
             string[] array1 = Directory.GetDirectories(Application.StartupPath);
 
@@ -48,7 +108,7 @@ namespace WindowsFormsApplication1
                 //Console.WriteLine(siteItem);
                 if (setting.Sites.Any(w => siteItem.Contains(w.SiteName)))
                 {
-                    var site = siteItem.Remove(0,Application.StartupPath.Length + 1);
+                    var site = siteItem.Remove(0, Application.StartupPath.Length + 1);
 
                     string[] array2 = Directory.GetDirectories(Application.StartupPath + "\\" + site);
 
@@ -64,7 +124,7 @@ namespace WindowsFormsApplication1
                             {
                                 var cat = catItem.Remove(0, (langItem).Length + 1);
                                 //Console.WriteLine(catItem);
-                                if (setting.Categories.Any(w=> cat.Contains(w.CategoryName)))
+                                if (setting.Categories.Any(w => cat.Contains(w.CategoryName)))
                                 {
                                     FileSystemWatcher watcher = new FileSystemWatcher();
                                     watcher.Path = catItem;
@@ -115,18 +175,32 @@ namespace WindowsFormsApplication1
             if (strFileExt == ".docx" || strFileExt == ".doc")
             {
                 Console.WriteLine("File: " + e.Name + " " + e.ChangeType);
-                
+
                 if (e.Name[0].ToString() != "~")
                 {
-                    if (!fileNames.Contains(e.Name))
+                    FileInfo fileInfo = new FileInfo(e.FullPath);
+                    if (!setting.FileInfos.Any(w => e.Name.Contains(w.FileName)))
                     {
-                        fileNames.Add(e.Name);
-                        if (e.ChangeType == WatcherChangeTypes.Changed)
-                            ChangeFileCount++;
+                        setting.FileInfos.Add(new Settings.FileInfo
+                            {
+                                FileName = e.Name,
+                                FilePath = e.FullPath,
+                                ChangeDateTime = fileInfo.LastWriteTime,
+                                Changed = true
+                            });
                     }
-                    
-                    if (e.ChangeType == WatcherChangeTypes.Created)
-                        CreateFileCount++;
+                    else
+                    {
+                        setting.FileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName)).ChangeDateTime = fileInfo.LastWriteTime;
+                        setting.FileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName)).Changed = true;
+                    }
+
+                    if (e.ChangeType == WatcherChangeTypes.Deleted)
+                    {
+                        Settings.FileInfo file = setting.FileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName));
+                        if (file != null)
+                            setting.FileInfos.Remove(file);
+                    }
                 }
             }
         }
@@ -138,15 +212,28 @@ namespace WindowsFormsApplication1
 
             if (strFileExt == ".docx" || strFileExt == ".doc")
             {
-                if (!fileNames.Contains(e.Name))
+                FileInfo fileInfo = new FileInfo(e.FullPath);
+                if (!setting.FileInfos.Any(w => e.Name.Contains(w.FileName)))
                 {
-                    fileNames.Add(e.Name);
-                    ChangeFileCount++;
+                    setting.FileInfos.Add(new Settings.FileInfo
+                    {
+                        FileName = e.Name,
+                        FilePath = e.FullPath,
+                        ChangeDateTime = fileInfo.LastWriteTime,
+                        Changed = true
+                    });
+                }
+                else
+                {
+                    setting.FileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName)).ChangeDateTime = fileInfo.LastWriteTime;
+                    setting.FileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName)).Changed = true;
                 }
                 Console.WriteLine("File: {0} renamed to {1}", e.OldName, e.Name);
             }
         }
         #endregion
+
+
 
         private void FrmSites_Load(object sender, EventArgs e)
         {
@@ -155,12 +242,13 @@ namespace WindowsFormsApplication1
 
         private void FrmSites_FormClosed(object sender, FormClosedEventArgs e)
         {
+            Settings.SerializeToXml(setting);
             Application.Exit();
         }
 
         private void btnCreateNewSite_Click(object sender, EventArgs e)
         {
-            NewSiteWizard newSite = new NewSiteWizard(setting,string.Empty);
+            NewSiteWizard newSite = new NewSiteWizard(setting, string.Empty);
             newSite.ShowDialog();
             newSite.Dispose();
         }
@@ -195,15 +283,36 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void FrmSites_Activated(object sender, EventArgs e)
-        {
-            
-        }
-
+        int i = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            lblChangeDocCount.Text = "Değişen Dosya Sayısı : " + ChangeFileCount.ToString();
-            lblCreateDocCount.Text = "Eklenen Dosya Sayısı : " + CreateFileCount.ToString();
+            lblChangeDocCount.Text = "Değişen Dosya Sayısı : " + setting.FileInfos.Where(w=> w.Changed).Count().ToString();
+            if (i == 10)
+            {
+                Settings.SerializeToXml(setting);
+                i = 0;
+            }
+            i++;
+        }
+
+        private void btnViewChangeFiles_Click(object sender, EventArgs e)
+        {
+            FrmConvertHtml convertHtml = new FrmConvertHtml(setting);
+            convertHtml.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string filePath = @"C:\Users\unknown\Documents\Visual Studio 2012\Projects\ProjectCms\ProjectCms\WindowsFormsApplication1\bin\Debug\aaa\en\aaa\New Microsoft Word Document.docx";
+
+            string[] siteName = filePath.Split('\\');
+
+            string result = string.Empty;
+            for (int j = 0; j < siteName.Count() - 1; j++)
+            {
+                result += siteName[j] + "\\";
+            }
+            Console.WriteLine(result);
         }
     }
 }

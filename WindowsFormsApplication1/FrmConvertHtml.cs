@@ -19,35 +19,61 @@ namespace WindowsFormsApplication1
 {
     public partial class FrmConvertHtml : Form
     {
-        public FrmConvertHtml()
+        private Settings.Setting setting;
+        public FrmConvertHtml(Settings.Setting _setting)
         {
             InitializeComponent();
+            setting = _setting;
+            LoadList();
+        }
+
+        private void LoadList()
+        {
+            grdList.DataSource = setting.FileInfos.Where(w => w.Changed).ToList();
+            grdList.AutoGenerateColumns = true;
+            grdList.ReadOnly = true;
+
+            if (setting.FileInfos.Where(w => w.Changed).Count() <= 0)
+                MessageBox.Show("Değişen Dosya Yok");
         }
 
         private void btn2Html_Click(object sender, EventArgs e)
         {
-            converttthtml();
+            foreach (var fileInfo in setting.FileInfos.Where(w=> w.Changed).ToList())
+            {
+                setting.ImageCounter = converttthtml(fileInfo.FilePath, setting.ImageCounter);
+                setting.FileInfos.FirstOrDefault(w => fileInfo.FilePath.Contains(w.FilePath)).Changed = false;
+            }
+
+            Settings.SerializeToXml(setting);
+
+            LoadList();
         }
 
-        private void converttthtml()
+        private int converttthtml(string filePath,int imageCnt)
         {
             // This example shows the simplest conversion. No images are converted.
             // A cascading style sheet is not used.
-            string fileName = "c:\\users\\tamerpc\\desktop\\serdar\\hello.docx";
+            string fileName = filePath;
             byte[] byteArray = File.ReadAllBytes(fileName);
 
             FileInfo fileInfo = new FileInfo(fileName);
-            string imageDirectoryName = fileInfo.Name.Substring(0,
-                fileInfo.Name.Length - fileInfo.Extension.Length) + "_files";
-            DirectoryInfo dirInfo = new DirectoryInfo(imageDirectoryName);
-            if (dirInfo.Exists)
-            {
-                // Delete the directory and files.
-                foreach (var f in dirInfo.GetFiles())
-                    f.Delete();
-                dirInfo.Delete();
-            }
-            int imageCounter = 0;
+            //string imageDirectoryName = fileInfo.Name.Substring(0,fileInfo.Name.Length - fileInfo.Extension.Length) + "_files";
+
+            string siteName = filePath.Remove(0, Application.StartupPath.Length);
+            siteName = siteName.Split('\\')[1];
+
+            string imageDirectoryName = Application.StartupPath + "\\" + siteName + "\\s\\img";
+
+            //DirectoryInfo dirInfo = new DirectoryInfo(imageDirectoryName);
+            //if (dirInfo.Exists)
+            //{
+            //    // Delete the directory and files.
+            //    foreach (var f in dirInfo.GetFiles())
+            //        f.Delete();
+            //    dirInfo.Delete();
+            //}
+            int imageCounter = imageCnt;
 
             using (MemoryStream memoryStream = new MemoryStream())
             {
@@ -57,7 +83,7 @@ namespace WindowsFormsApplication1
                 {
                     HtmlConverterSettings settings = new HtmlConverterSettings()
                     {
-                        PageTitle = "Test Title",
+                        PageTitle = "",
                         ConvertFormatting = false,
                     };
                     XElement html = HtmlConverter.ConvertToHtml(doc, settings,
@@ -72,7 +98,7 @@ namespace WindowsFormsApplication1
                             if (extension == "png")
                             {
                                 // Convert the .png file to a .jpeg file.
-                                extension = "jpeg";
+                                extension = "jpg";
                                 imageFormat = ImageFormat.Jpeg;
                             }
                             else if (extension == "bmp")
@@ -87,8 +113,7 @@ namespace WindowsFormsApplication1
                             if (imageFormat == null)
                                 return null;
 
-                            string imageFileName = imageDirectoryName + "/image" +
-                                imageCounter.ToString() + "." + extension;
+                            string imageFileName = imageDirectoryName + "\\image" + imageCounter.ToString() + "." + extension;
                             try
                             {
                                 imageInfo.Bitmap.Save(imageFileName, imageFormat);
@@ -98,10 +123,9 @@ namespace WindowsFormsApplication1
                                 return null;
                             }
                             XElement img = new XElement(HtmlConverter.Xhtml.img,
-                                new XAttribute(NoNamespace.src, imageFileName),
-                                imageInfo.ImgStyleAttribute,
-                                imageInfo.AltText != null ?
-                                    new XAttribute(NoNamespace.alt, imageInfo.AltText) : null);
+                                                        new XAttribute(NoNamespace.src, imageFileName),
+                                                        imageInfo.ImgStyleAttribute, null);
+                                //imageInfo.AltText != null ? new XAttribute(NoNamespace.alt, imageInfo.AltText) : null);
                             return img;
                         });
 
@@ -117,15 +141,25 @@ namespace WindowsFormsApplication1
                     //    fileInfo.Name.Length - fileInfo.Extension.Length) + ".html",
                     //    html.ToStringNewLineOnAttributes());
 
-                    var path = Path.GetDirectoryName(Application.ExecutablePath);
+                    //var path = Path.GetDirectoryName(Application.ExecutablePath);
 
+                    string[] paths = filePath.Split('\\');
+
+                    string path = string.Empty;
+                    for (int j = 0; j < paths.Count() - 1; j++)
+                    {
+                        path += paths[j] + "\\";
+                    }
+                    
                     File.WriteAllText(path + "/" + fileInfo.Name.Substring(0,
                         fileInfo.Name.Length - fileInfo.Extension.Length) + ".html",
                         html.ToStringNewLineOnAttributes());
                 }
             }
+            return imageCounter;
         }
 
+        #region openxml
         public class HtmlConverterSettings
         {
             public string PageTitle;
@@ -406,11 +440,11 @@ namespace WindowsFormsApplication1
                                 new XElement(Xhtml.meta,
                                     new XAttribute(HtmlNoNamespace.http_equiv, "Content-Type"),
                                     new XAttribute(HtmlNoNamespace.content,
-                                        "text/html; charset=windows-1252")),
-                                new XElement(Xhtml.meta,
-                                    new XAttribute(HtmlNoNamespace.name, "Generator"),
-                                    new XAttribute(HtmlNoNamespace.content,
-                                        "PowerTools for Open XML")),
+                                        "text/html; charset=utf-8")),
+                                //new XElement(Xhtml.meta,
+                                //    new XAttribute(HtmlNoNamespace.name, "HtmlCms"),//Generator
+                                //    new XAttribute(HtmlNoNamespace.content,
+                                //        "HtmlCms")),//PowerTools for Open XML
                                 settings.PageTitle != null ? new XElement(Xhtml.title,
                                     settings.PageTitle) : null,
                                 settings.Css != null ? new XElement(Xhtml.style,
@@ -1876,6 +1910,12 @@ namespace WindowsFormsApplication1
             public static XName PreserveAttributes = mc + "PreserveAttributes";
         }
 
+        private void grdList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (grdList.Focused)
+                Console.WriteLine(grdList.SelectedRows.Count.ToString());
+        }
+
         #region silsonra
 
         //private void readxml()
@@ -2017,7 +2057,7 @@ namespace WindowsFormsApplication1
 
         //}
         #endregion
-
+        #endregion
     }
 
 

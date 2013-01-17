@@ -36,8 +36,9 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnEditSite = new System.Windows.Forms.Button();
             this.lblChangeDocCount = new System.Windows.Forms.Label();
-            this.lblCreateDocCount = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnViewChangeFiles = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCreateNewSite
@@ -103,26 +104,38 @@
             this.lblChangeDocCount.TabIndex = 8;
             this.lblChangeDocCount.Text = "label2";
             // 
-            // lblCreateDocCount
-            // 
-            this.lblCreateDocCount.AutoSize = true;
-            this.lblCreateDocCount.Location = new System.Drawing.Point(289, 100);
-            this.lblCreateDocCount.Name = "lblCreateDocCount";
-            this.lblCreateDocCount.Size = new System.Drawing.Size(35, 13);
-            this.lblCreateDocCount.TabIndex = 9;
-            this.lblCreateDocCount.Text = "label2";
-            // 
             // timer1
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // btnViewChangeFiles
+            // 
+            this.btnViewChangeFiles.Location = new System.Drawing.Point(348, 101);
+            this.btnViewChangeFiles.Name = "btnViewChangeFiles";
+            this.btnViewChangeFiles.Size = new System.Drawing.Size(143, 25);
+            this.btnViewChangeFiles.TabIndex = 10;
+            this.btnViewChangeFiles.Text = "Değişiklikleri Görüntüle";
+            this.btnViewChangeFiles.UseVisualStyleBackColor = true;
+            this.btnViewChangeFiles.Click += new System.EventHandler(this.btnViewChangeFiles_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(410, 275);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Test";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FrmSites
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(513, 338);
-            this.Controls.Add(this.lblCreateDocCount);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnViewChangeFiles);
             this.Controls.Add(this.lblChangeDocCount);
             this.Controls.Add(this.btnEditSite);
             this.Controls.Add(this.btnSearch);
@@ -133,7 +146,6 @@
             this.Name = "FrmSites";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Siteler";
-            this.Activated += new System.EventHandler(this.FrmSites_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmSites_FormClosed);
             this.Load += new System.EventHandler(this.FrmSites_Load);
             this.ResumeLayout(false);
@@ -150,7 +162,8 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnEditSite;
         private System.Windows.Forms.Label lblChangeDocCount;
-        private System.Windows.Forms.Label lblCreateDocCount;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button btnViewChangeFiles;
+        private System.Windows.Forms.Button button1;
     }
 }

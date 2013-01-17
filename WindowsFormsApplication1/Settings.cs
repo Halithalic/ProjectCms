@@ -15,6 +15,8 @@ namespace WindowsFormsApplication1
             public List<Site> Sites = new List<Site>();
             public Language Languages = new Language();
             public List<Category> Categories = new List<Category>();
+            public List<FileInfo> FileInfos = new List<FileInfo>();
+            public int ImageCounter { get; set; }
         }
 
         public class User
@@ -40,6 +42,14 @@ namespace WindowsFormsApplication1
         {
             public string CategoryName { get; set; }
         }
+
+        public class FileInfo
+        {
+            public string FileName { get; set; }
+            public string FilePath { get; set; }
+            public DateTime ChangeDateTime { get; set; }
+            public bool Changed { get; set; }
+        }   
 
         static public bool SerializeToXml(Setting setting)
         {
