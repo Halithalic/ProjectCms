@@ -98,7 +98,7 @@ namespace WindowsFormsApplication1
                             if (extension == "png")
                             {
                                 // Convert the .png file to a .jpeg file.
-                                extension = "jpg";
+                                extension = "jpeg";
                                 imageFormat = ImageFormat.Jpeg;
                             }
                             else if (extension == "bmp")
