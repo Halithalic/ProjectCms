@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using DocumentFormat.OpenXml.Packaging;
 
-namespace WindowsFormsApplication1
+namespace OpenXML
 {
     public static class PtOpenXmlExtensions
     {
