@@ -43,6 +43,7 @@ namespace HtmlCMS
             [XmlIgnore]
             public bool IsSelected { get; set; }
             public string CategoryName { get; set; }
+            public string LanguageName { get; set; }
             public string FileName { get; set; }
             public string FilePath { get; set; }
             public DateTime ChangeDateTime { get; set; }

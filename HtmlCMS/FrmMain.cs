@@ -31,11 +31,11 @@ namespace HtmlCMS
                 LoadList();
             }
             timer1.Enabled = true;
-            PathAnalyzer();
         }
 
         private void LoadList()
         {
+            if (selectedSite == null) return;
             grdList.DataSource = selectedSite.SiteFileInfos.ToList();
             grdList.AutoGenerateColumns = false;
             grdList.AutoResizeColumns();
@@ -133,6 +133,7 @@ namespace HtmlCMS
                                         ChangeDateTime = fileInfo.LastWriteTime,
                                         Changed = true,
                                         CategoryName = category.Name,
+                                        LanguageName = language.Name,
                                         Status = Settings.Status.NeedsGeneration
                                     });
                                 }
@@ -192,12 +193,15 @@ namespace HtmlCMS
             if (e.Name[0].ToString(CultureInfo.InvariantCulture) != "~")
             {
                 var str = e.FullPath.Split('\\').Reverse().ToArray();
-
+                
                 var site = setting.Sites.FirstOrDefault(w => w.SiteName == str[3]);
                 if (site != null)
                 {
+                    string categoryName = str[1];
+                    string languageName = str[2];
+
                     var fileInfo = new FileInfo(e.FullPath);
-                    if (!site.SiteFileInfos.Any(w => e.Name.Contains(w.FileName)))
+                    if (!site.SiteFileInfos.Any(w => e.Name.Contains(w.FileName) && w.CategoryName == categoryName && w.LanguageName == languageName))
                     {
                         site.SiteFileInfos.Add(new Settings.SiteFileInfo
                                                    {
@@ -205,13 +209,14 @@ namespace HtmlCMS
                                                        FilePath = e.FullPath,
                                                        ChangeDateTime = fileInfo.LastWriteTime,
                                                        Changed = true,
-                                                       CategoryName = str[1],
-                                                       Status = Settings.Status.NeedsGeneration
+                                                       CategoryName = categoryName,
+                                                       Status = Settings.Status.NeedsGeneration,
+                                                       LanguageName = languageName
                                                    });
                     }
                     else
                     {
-                        var siteFileInfos = site.SiteFileInfos.FirstOrDefault(w => e.FullPath.Contains(w.FilePath));
+                        var siteFileInfos = site.SiteFileInfos.FirstOrDefault(w => e.FullPath.Contains(w.FilePath) && w.CategoryName == categoryName && w.LanguageName == languageName);
                         if (siteFileInfos != null && fileInfo.LastWriteTime != siteFileInfos.ChangeDateTime)
                         {
                             siteFileInfos.ChangeDateTime = fileInfo.LastWriteTime;
@@ -221,7 +226,7 @@ namespace HtmlCMS
 
                     if (e.ChangeType == WatcherChangeTypes.Deleted)
                     {
-                        var file = site.SiteFileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName));
+                        var file = site.SiteFileInfos.FirstOrDefault(w => e.Name.Contains(w.FileName) && w.CategoryName == categoryName && w.LanguageName == languageName);
                         if (file != null)
                             site.SiteFileInfos.Remove(file);
                     }
@@ -243,8 +248,11 @@ namespace HtmlCMS
                 var site = setting.Sites.FirstOrDefault(w => w.SiteName == str[3]);
                 if (site != null)
                 {
+                    string categoryName = str[1];
+                    string languageName = str[2];
+
                     var fileInfo = new FileInfo(e.FullPath);
-                    if (!site.SiteFileInfos.Any(w => e.Name.Contains(w.FileName)))
+                    if (!site.SiteFileInfos.Any(w => e.Name.Contains(w.FileName) && w.CategoryName == categoryName && w.LanguageName == languageName))
                     {
                         site.SiteFileInfos.Add(new Settings.SiteFileInfo
                                                    {
@@ -252,13 +260,14 @@ namespace HtmlCMS
                                                        FilePath = e.FullPath,
                                                        ChangeDateTime = fileInfo.LastWriteTime,
                                                        Changed = true,
-                                                       CategoryName = str[1],
-                                                       Status = Settings.Status.NeedsGeneration
+                                                       CategoryName = categoryName,
+                                                       Status = Settings.Status.NeedsGeneration,
+                                                       LanguageName = languageName
                                                    });
                     }
                     else
                     {
-                        var siteFileInfos = site.SiteFileInfos.FirstOrDefault(w => e.FullPath.Contains(w.FilePath));
+                        var siteFileInfos = site.SiteFileInfos.FirstOrDefault(w => e.FullPath.Contains(w.FilePath) && w.CategoryName == categoryName && w.LanguageName == languageName);
                         if (siteFileInfos != null && fileInfo.LastWriteTime != siteFileInfos.ChangeDateTime)
                         {
                             siteFileInfos.ChangeDateTime = fileInfo.LastWriteTime;
@@ -281,6 +290,7 @@ namespace HtmlCMS
             {
                 lstSite.Items.Add(item.SiteName);
             }
+            PathAnalyzer();
         }
 
         private void btnAddSite_Click(object sender, EventArgs e)
@@ -288,6 +298,7 @@ namespace HtmlCMS
             var newSiteWizard = new FrmNewSite(setting, string.Empty);
             newSiteWizard.ShowDialog();
             newSiteWizard.Dispose();
+            LoadSites();
         }
 
         private void lstSite_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -334,6 +345,13 @@ namespace HtmlCMS
             Settings.SerializeToXml(setting);
 
             LoadList();
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            var frmSettings = new FrmSettings(setting);
+            frmSettings.ShowDialog();
+            frmSettings.Dispose();
         }
     }
 }

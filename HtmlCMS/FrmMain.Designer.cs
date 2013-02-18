@@ -37,6 +37,7 @@
             this.btnConvert = new System.Windows.Forms.Button();
             this.btnUpload = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnSettings = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -64,17 +65,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(764, 453);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(905, 615);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // btnAddSite
             // 
             this.btnAddSite.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAddSite.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnAddSite.Location = new System.Drawing.Point(462, 26);
+            this.btnAddSite.Location = new System.Drawing.Point(546, 34);
             this.btnAddSite.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddSite.Name = "btnAddSite";
-            this.btnAddSite.Size = new System.Drawing.Size(259, 37);
+            this.btnAddSite.Size = new System.Drawing.Size(308, 53);
             this.btnAddSite.TabIndex = 9;
             this.btnAddSite.Text = "Add New Site";
             this.btnAddSite.UseVisualStyleBackColor = true;
@@ -88,10 +89,10 @@
             this.lstSite.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lstSite.FormattingEnabled = true;
             this.lstSite.ItemHeight = 16;
-            this.lstSite.Location = new System.Drawing.Point(462, 93);
+            this.lstSite.Location = new System.Drawing.Point(546, 125);
             this.lstSite.Margin = new System.Windows.Forms.Padding(4);
             this.lstSite.Name = "lstSite";
-            this.lstSite.Size = new System.Drawing.Size(259, 331);
+            this.lstSite.Size = new System.Drawing.Size(308, 453);
             this.lstSite.TabIndex = 10;
             this.lstSite.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstSite_MouseClick);
             this.lstSite.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstSite_MouseDoubleClick);
@@ -100,25 +101,26 @@
             // 
             this.grdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdList.Location = new System.Drawing.Point(41, 92);
+            this.grdList.Location = new System.Drawing.Point(48, 124);
             this.grdList.Name = "grdList";
-            this.grdList.Size = new System.Drawing.Size(376, 333);
+            this.grdList.Size = new System.Drawing.Size(446, 455);
             this.grdList.TabIndex = 11;
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.Controls.Add(this.btnConvert, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnUpload, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnSettings, 2, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(41, 25);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(48, 33);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(376, 39);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(446, 55);
             this.tableLayoutPanel2.TabIndex = 12;
             // 
             // btnConvert
@@ -126,7 +128,7 @@
             this.btnConvert.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnConvert.Location = new System.Drawing.Point(3, 3);
             this.btnConvert.Name = "btnConvert";
-            this.btnConvert.Size = new System.Drawing.Size(182, 39);
+            this.btnConvert.Size = new System.Drawing.Size(142, 49);
             this.btnConvert.TabIndex = 13;
             this.btnConvert.Text = "Convert Word to Html";
             this.btnConvert.UseVisualStyleBackColor = true;
@@ -135,19 +137,30 @@
             // btnUpload
             // 
             this.btnUpload.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUpload.Location = new System.Drawing.Point(191, 3);
+            this.btnUpload.Location = new System.Drawing.Point(151, 3);
             this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(182, 39);
+            this.btnUpload.Size = new System.Drawing.Size(142, 49);
             this.btnUpload.TabIndex = 14;
             this.btnUpload.Text = "Upload";
             this.btnUpload.UseVisualStyleBackColor = true;
             this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
+            // btnSettings
+            // 
+            this.btnSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSettings.Location = new System.Drawing.Point(299, 3);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(144, 49);
+            this.btnSettings.TabIndex = 15;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 453);
+            this.ClientSize = new System.Drawing.Size(905, 615);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -172,6 +185,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button btnConvert;
         private System.Windows.Forms.Button btnUpload;
+        private System.Windows.Forms.Button btnSettings;
 
     }
 }
