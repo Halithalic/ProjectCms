@@ -53,6 +53,16 @@ namespace HtmlCMS
             });
 
             grdList.Columns.Add(new DataGridViewTextBoxColumn()
+            {
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                Name = "LanguageName",
+                HeaderText = "Language",
+                Visible = true,
+                DataPropertyName = "LanguageName",
+                ReadOnly = true
+            });
+
+            grdList.Columns.Add(new DataGridViewTextBoxColumn()
                                     {
                                         AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
                                         Name = "CategoryName",
