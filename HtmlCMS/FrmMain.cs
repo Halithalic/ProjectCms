@@ -40,6 +40,11 @@ namespace HtmlCMS
             grdList.AutoGenerateColumns = false;
             grdList.AutoResizeColumns();
 
+            btnConvert.Enabled = selectedSite.SiteFileInfos.Count > 0;
+            btnUpload.Enabled = selectedSite.SiteFileInfos.Count > 0;
+
+
+
             grdList.Columns.Clear();
 
             grdList.Columns.Add(new DataGridViewCheckBoxColumn()
@@ -203,7 +208,7 @@ namespace HtmlCMS
             if (e.Name[0].ToString(CultureInfo.InvariantCulture) != "~")
             {
                 var str = e.FullPath.Split('\\').Reverse().ToArray();
-                
+
                 var site = setting.Sites.FirstOrDefault(w => w.SiteName == str[3]);
                 if (site != null)
                 {
@@ -343,7 +348,7 @@ namespace HtmlCMS
         {
             foreach (var fileInfo in selectedSite.SiteFileInfos.Where(w => w.Changed && w.IsSelected))
             {
-                setting.ImageCounter = Utility.ConvertToHtml(Application.StartupPath, fileInfo.FilePath, setting.ImageCounter);
+                setting.ImageCounter = Utility.ConvertToHtml(Application.StartupPath, fileInfo.FilePath, setting.ImageCounter, setting.MaxWidthSetting);
                 var siteFileInfo = selectedSite.SiteFileInfos.FirstOrDefault(w => fileInfo.FilePath.Contains(w.FilePath));
                 if (siteFileInfo != null)
                 {

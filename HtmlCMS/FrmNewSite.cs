@@ -117,7 +117,8 @@ namespace HtmlCMS
                     }
                 }
 
-                MessageBox.Show("Succesfull");
+                //MessageBox.Show("Succesfull");
+                this.Close();
             }
             else
             {

@@ -14,6 +14,8 @@ namespace HtmlCMS
             public readonly List<Site> Sites = new List<Site>();
 
             public int ImageCounter { get; set; }
+            public string MaxWidthSetting { get; set; }
+            public bool LinkPushStyle { get; set; }
         }
 
         public class Site

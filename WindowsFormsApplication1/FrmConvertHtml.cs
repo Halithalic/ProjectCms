@@ -42,7 +42,7 @@ namespace WindowsFormsApplication1
         {
             foreach (var fileInfo in setting.FileInfos.Where(w => w.Changed).ToList())
             {
-                setting.ImageCounter = Utility.ConvertToHtml(Application.StartupPath, fileInfo.FilePath, setting.ImageCounter);
+                setting.ImageCounter = Utility.ConvertToHtml(Application.StartupPath, fileInfo.FilePath, setting.ImageCounter, "");
                 setting.FileInfos.FirstOrDefault(w => fileInfo.FilePath.Contains(w.FilePath)).Changed = false;
             }
 
@@ -1808,7 +1808,7 @@ namespace WindowsFormsApplication1
         //        public static XName PreserveAttributes = mc + "PreserveAttributes";
         //    }
 
-     
+
 
         //    #region silsonra
 

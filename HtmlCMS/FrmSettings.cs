@@ -27,7 +27,18 @@ namespace HtmlCMS
 
         private void FrmSettings_Load(object sender, EventArgs e)
         {
+            txtMaxWidth.Text = _setting.MaxWidthSetting;
+            chkLinkPushStyle.Checked = _setting.LinkPushStyle;
+        }
 
+        private void btnSaveSettings_Click(object sender, EventArgs e)
+        {
+            _setting.MaxWidthSetting = txtMaxWidth.Text.Trim();
+            _setting.LinkPushStyle = chkLinkPushStyle.Checked;
+            if (Settings.SerializeToXml(_setting))
+                this.Close();
+            else
+                MessageBox.Show("Unsuccessfull");
         }
     }
 }

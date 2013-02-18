@@ -8,13 +8,16 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace OpenXML
 {
     public class Utility
     {
-        public static int ConvertToHtml(string masterPath,string filePath, int imageCnt)
+        private static string maxWidthSetting;
+        public static int ConvertToHtml(string masterPath, string filePath, int imageCnt, string _maxWidthSetting)
         {
+            maxWidthSetting = _maxWidthSetting;
             // This example shows the simplest conversion. No images are converted.
             // A cascading style sheet is not used.
             var fileName = filePath;
@@ -24,7 +27,7 @@ namespace OpenXML
             //string imageDirectoryName = fileInfo.Name.Substring(0,fileInfo.Name.Length - fileInfo.Extension.Length) + "_files";
 
             var siteName = filePath.Remove(0, masterPath.Length);
-            siteName = siteName.Split('\\')[1];
+            siteName = siteName.Split('\\')[2];
 
             string imageDirectoryName = masterPath + "\\sites\\" + siteName + "\\s\\img";
 
@@ -85,8 +88,10 @@ namespace OpenXML
                             {
                                 return null;
                             }
+
+                            string imagePath = "..\\..\\s\\img\\image" + imageCounter.ToString() + "." + extension;
                             XElement img = new XElement(HtmlConverter.Xhtml.img,
-                                                        new XAttribute(NoNamespace.src, imageFileName),
+                                                        new XAttribute(NoNamespace.src, imagePath),
                                                         imageInfo.ImgStyleAttribute, null);
                             //imageInfo.AltText != null ? new XAttribute(NoNamespace.alt, imageInfo.AltText) : null);
                             return img;
@@ -215,7 +220,7 @@ namespace OpenXML
                                         {
                                             Bitmap = bitmap,
                                             ImgStyleAttribute = new XAttribute(HtmlNoNamespace.style,
-                                                string.Format("width: {0}in; height: {1}in",
+                                                string.Format("width: {0}in; height: {1}in;" + maxWidthSetting,
                                                     (float)extentCx / (float)ImageInfo.EmusPerInch,
                                                     (float)extentCy / (float)ImageInfo.EmusPerInch)),
                                             ContentType = contentType,
@@ -380,7 +385,7 @@ namespace OpenXML
                 public static XName p = xhtml + "p";
                 public static XName h1 = xhtml + "h1";
                 public static XName h2 = xhtml + "h2";
-                public static XName A = xhtml + "A";
+                public static XName A = xhtml + "a";
                 public static XName b = xhtml + "b";
                 public static XName table = xhtml + "table";
                 public static XName tr = xhtml + "tr";
