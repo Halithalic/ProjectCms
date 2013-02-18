@@ -82,6 +82,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -101,6 +102,15 @@
       <Project>{5eba1241-8fdd-4d61-9952-2f96305cba3f}</Project>
       <Name>OpenXML</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1361237524_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1361237535_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1361237613_upload_arrow_up.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

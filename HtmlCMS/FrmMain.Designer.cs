@@ -31,15 +31,15 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnAddSite = new System.Windows.Forms.Button();
             this.lstSite = new System.Windows.Forms.ListBox();
             this.grdList = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnConvert = new System.Windows.Forms.Button();
-            this.btnUpload = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ImgList = new System.Windows.Forms.ImageList(this.components);
+            this.btnAddSite = new System.Windows.Forms.Button();
+            this.btnUpload = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -69,19 +69,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(905, 615);
             this.tableLayoutPanel1.TabIndex = 4;
-            // 
-            // btnAddSite
-            // 
-            this.btnAddSite.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddSite.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnAddSite.Location = new System.Drawing.Point(546, 34);
-            this.btnAddSite.Margin = new System.Windows.Forms.Padding(4);
-            this.btnAddSite.Name = "btnAddSite";
-            this.btnAddSite.Size = new System.Drawing.Size(308, 53);
-            this.btnAddSite.TabIndex = 9;
-            this.btnAddSite.Text = "Add New Site";
-            this.btnAddSite.UseVisualStyleBackColor = true;
-            this.btnAddSite.Click += new System.EventHandler(this.btnAddSite_Click);
             // 
             // lstSite
             // 
@@ -132,20 +119,9 @@
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(142, 49);
             this.btnConvert.TabIndex = 13;
-            this.btnConvert.Text = "Convert Word to Html";
+            this.btnConvert.Text = "Generate";
             this.btnConvert.UseVisualStyleBackColor = true;
             this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
-            // 
-            // btnUpload
-            // 
-            this.btnUpload.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUpload.Location = new System.Drawing.Point(151, 3);
-            this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(142, 49);
-            this.btnUpload.TabIndex = 14;
-            this.btnUpload.Text = "Upload";
-            this.btnUpload.UseVisualStyleBackColor = true;
-            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
             // btnSettings
             // 
@@ -412,6 +388,34 @@
             this.ImgList.Images.SetKeyName(247, "ZA.png");
             this.ImgList.Images.SetKeyName(248, "ZM.png");
             this.ImgList.Images.SetKeyName(249, "ZW.png");
+            // 
+            // btnAddSite
+            // 
+            this.btnAddSite.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAddSite.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnAddSite.Image = global::HtmlCMS.Properties.Resources._1361237535_add;
+            this.btnAddSite.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddSite.Location = new System.Drawing.Point(546, 34);
+            this.btnAddSite.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAddSite.Name = "btnAddSite";
+            this.btnAddSite.Size = new System.Drawing.Size(308, 53);
+            this.btnAddSite.TabIndex = 9;
+            this.btnAddSite.Text = "Add New Site";
+            this.btnAddSite.UseVisualStyleBackColor = true;
+            this.btnAddSite.Click += new System.EventHandler(this.btnAddSite_Click);
+            // 
+            // btnUpload
+            // 
+            this.btnUpload.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnUpload.Image = global::HtmlCMS.Properties.Resources._1361237613_upload_arrow_up;
+            this.btnUpload.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUpload.Location = new System.Drawing.Point(151, 3);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(142, 49);
+            this.btnUpload.TabIndex = 14;
+            this.btnUpload.Text = "Upload";
+            this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
             // FrmMain
             // 
