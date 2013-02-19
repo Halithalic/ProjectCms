@@ -29,6 +29,9 @@ namespace HtmlCMS
         {
             txtMaxWidth.Text = _setting.MaxWidthSetting;
             chkLinkPushStyle.Checked = _setting.LinkPushStyle;
+
+            if (string.IsNullOrEmpty(txtMaxWidth.Text))
+                txtMaxWidth.Text = "max-width:755px;";
         }
 
         private void btnSaveSettings_Click(object sender, EventArgs e)

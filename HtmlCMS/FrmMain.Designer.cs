@@ -40,6 +40,8 @@
             this.btnSettings = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ImgList = new System.Windows.Forms.ImageList(this.components);
+            this.btnIconList32 = new System.Windows.Forms.ImageList(this.components);
+            this.btnIconList128 = new System.Windows.Forms.ImageList(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -74,8 +76,9 @@
             // 
             this.btnAddSite.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAddSite.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnAddSite.Image = global::HtmlCMS.Properties.Resources._1361237535_add;
             this.btnAddSite.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAddSite.ImageKey = "1361282448_32_monotone_plus_add.png";
+            this.btnAddSite.ImageList = this.btnIconList32;
             this.btnAddSite.Location = new System.Drawing.Point(546, 34);
             this.btnAddSite.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddSite.Name = "btnAddSite";
@@ -99,6 +102,7 @@
             this.lstSite.Size = new System.Drawing.Size(308, 453);
             this.lstSite.TabIndex = 10;
             this.lstSite.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstSite_MouseClick);
+            this.lstSite.SelectedIndexChanged += new System.EventHandler(this.lstSite_SelectedIndexChanged);
             this.lstSite.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstSite_MouseDoubleClick);
             // 
             // grdList
@@ -132,6 +136,7 @@
             // btnConvert
             // 
             this.btnConvert.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnConvert.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnConvert.Location = new System.Drawing.Point(3, 3);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(142, 49);
@@ -143,7 +148,6 @@
             // btnUpload
             // 
             this.btnUpload.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUpload.Image = global::HtmlCMS.Properties.Resources._1361237613_upload_arrow_up;
             this.btnUpload.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnUpload.Location = new System.Drawing.Point(151, 3);
             this.btnUpload.Name = "btnUpload";
@@ -156,6 +160,7 @@
             // btnSettings
             // 
             this.btnSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSettings.Location = new System.Drawing.Point(299, 3);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(144, 49);
@@ -419,6 +424,24 @@
             this.ImgList.Images.SetKeyName(248, "ZM.png");
             this.ImgList.Images.SetKeyName(249, "ZW.png");
             // 
+            // btnIconList32
+            // 
+            this.btnIconList32.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("btnIconList32.ImageStream")));
+            this.btnIconList32.TransparentColor = System.Drawing.Color.Transparent;
+            this.btnIconList32.Images.SetKeyName(0, "1361282347_32_monotone_cog_settings_gear.png");
+            this.btnIconList32.Images.SetKeyName(1, "1361282351_32_monotone_arrow_play_right_next.png");
+            this.btnIconList32.Images.SetKeyName(2, "1361282448_32_monotone_plus_add.png");
+            this.btnIconList32.Images.SetKeyName(3, "1361282488_32_upload_arrow_up.png");
+            // 
+            // btnIconList128
+            // 
+            this.btnIconList128.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("btnIconList128.ImageStream")));
+            this.btnIconList128.TransparentColor = System.Drawing.Color.Transparent;
+            this.btnIconList128.Images.SetKeyName(0, "1361282347_monotone_cog_settings_gear.png");
+            this.btnIconList128.Images.SetKeyName(1, "1361282351_monotone_arrow_play_right_next.png");
+            this.btnIconList128.Images.SetKeyName(2, "1361282448_monotone_plus_add.png");
+            this.btnIconList128.Images.SetKeyName(3, "1361282488_upload_arrow_up.png");
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -431,6 +454,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HtmlCMS";
             this.Load += new System.EventHandler(this.FrmMain_Load);
+            this.Resize += new System.EventHandler(this.FrmMain_Resize);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -450,6 +474,8 @@
         private System.Windows.Forms.Button btnUpload;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.ImageList ImgList;
+        private System.Windows.Forms.ImageList btnIconList32;
+        private System.Windows.Forms.ImageList btnIconList128;
 
     }
 }

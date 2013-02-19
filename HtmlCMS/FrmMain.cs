@@ -32,6 +32,7 @@ namespace HtmlCMS
                 LoadList();
             }
             timer1.Enabled = true;
+            FrmMain_Resize(null, null);
         }
 
         private void LoadList()
@@ -385,6 +386,47 @@ namespace HtmlCMS
                     }
                 }
                 grdList.Refresh();
+            }
+        }
+
+        private void lstSite_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstSite.SelectedItem != null)
+            {
+                selectedSite = setting.Sites.FirstOrDefault(w => w.SiteName == lstSite.SelectedItem.ToString());
+                LoadList();
+            }
+        }
+
+        private void FrmMain_Resize(object sender, EventArgs e)
+        {
+            if (this.Width > 1000 && this.Height > 800)
+            {
+                btnAddSite.ImageList = btnIconList128;
+                btnAddSite.ImageKey = "1361282448_monotone_plus_add.png";
+
+                btnConvert.ImageList = btnIconList128;
+                btnConvert.ImageKey = "1361282351_monotone_arrow_play_right_next.png";
+
+                btnUpload.ImageList = btnIconList128;
+                btnUpload.ImageKey = "1361282488_upload_arrow_up.png";
+
+                btnSettings.ImageList = btnIconList128;
+                btnSettings.ImageKey = "1361282347_monotone_cog_settings_gear.png";
+            }
+            else
+            {
+                btnAddSite.ImageList = btnIconList32;
+                btnAddSite.ImageKey = "1361282448_32_monotone_plus_add.png";
+
+                btnConvert.ImageList = btnIconList32;
+                btnConvert.ImageKey = "1361282351_32_monotone_arrow_play_right_next.png";
+
+                btnUpload.ImageList = btnIconList32;
+                btnUpload.ImageKey = "1361282488_32_upload_arrow_up.png";
+
+                btnSettings.ImageList = btnIconList32;
+                btnSettings.ImageKey = "1361282347_32_monotone_cog_settings_gear.png";
             }
         }
     }

@@ -28,18 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmNewSite));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtDomain = new System.Windows.Forms.TextBox();
+            this.txtSiteName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtSiteName = new System.Windows.Forms.TextBox();
-            this.txtDomain = new System.Windows.Forms.TextBox();
             this.txtLanguages = new System.Windows.Forms.TextBox();
             this.txtCategories = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.ımageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,6 +79,22 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.012119F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(915, 579);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // txtDomain
+            // 
+            this.txtDomain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDomain.Location = new System.Drawing.Point(230, 61);
+            this.txtDomain.Name = "txtDomain";
+            this.txtDomain.Size = new System.Drawing.Size(451, 23);
+            this.txtDomain.TabIndex = 5;
+            // 
+            // txtSiteName
+            // 
+            this.txtSiteName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSiteName.Location = new System.Drawing.Point(230, 32);
+            this.txtSiteName.Name = "txtSiteName";
+            this.txtSiteName.Size = new System.Drawing.Size(451, 23);
+            this.txtSiteName.TabIndex = 4;
             // 
             // label1
             // 
@@ -117,22 +136,6 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Categories";
             // 
-            // txtSiteName
-            // 
-            this.txtSiteName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSiteName.Location = new System.Drawing.Point(230, 32);
-            this.txtSiteName.Name = "txtSiteName";
-            this.txtSiteName.Size = new System.Drawing.Size(451, 23);
-            this.txtSiteName.TabIndex = 4;
-            // 
-            // txtDomain
-            // 
-            this.txtDomain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtDomain.Location = new System.Drawing.Point(230, 61);
-            this.txtDomain.Name = "txtDomain";
-            this.txtDomain.Size = new System.Drawing.Size(451, 23);
-            this.txtDomain.TabIndex = 5;
-            // 
             // txtLanguages
             // 
             this.txtLanguages.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -156,6 +159,9 @@
             // btnSave
             // 
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSave.ImageKey = "1361282354_Save.png";
+            this.btnSave.ImageList = this.ımageList1;
             this.btnSave.Location = new System.Drawing.Point(230, 483);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(451, 63);
@@ -181,6 +187,12 @@
             this.label6.Size = new System.Drawing.Size(76, 48);
             this.label6.TabIndex = 10;
             this.label6.Text = "English-en\r\nTürkçe-tr\r\nFrench - fr";
+            // 
+            // ımageList1
+            // 
+            this.ımageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList1.ImageStream")));
+            this.ımageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.ımageList1.Images.SetKeyName(0, "1361282354_Save.png");
             // 
             // FrmNewSite
             // 
@@ -213,5 +225,6 @@
         public System.Windows.Forms.TextBox txtDomain;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ImageList ımageList1;
     }
 }
