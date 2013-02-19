@@ -281,6 +281,14 @@ namespace HtmlCMS
                                                        Status = Settings.Status.NeedsGeneration,
                                                        LanguageName = languageName
                                                    });
+
+                        var itemRemove =
+                            site.SiteFileInfos.FirstOrDefault(
+                                w =>
+                                w.CategoryName == categoryName && w.LanguageName == languageName &&
+                                e.OldName.Contains(w.FileName));
+                        if (itemRemove != null)
+                            site.SiteFileInfos.Remove(itemRemove);
                     }
                     else
                     {
@@ -428,6 +436,11 @@ namespace HtmlCMS
                 btnSettings.ImageList = btnIconList32;
                 btnSettings.ImageKey = "1361282347_32_monotone_cog_settings_gear.png";
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            PathAnalyzer();
         }
     }
 }

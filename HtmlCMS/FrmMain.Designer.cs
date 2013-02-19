@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAddSite = new System.Windows.Forms.Button();
+            this.btnIconList32 = new System.Windows.Forms.ImageList(this.components);
             this.lstSite = new System.Windows.Forms.ListBox();
             this.grdList = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -40,7 +41,6 @@
             this.btnSettings = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ImgList = new System.Windows.Forms.ImageList(this.components);
-            this.btnIconList32 = new System.Windows.Forms.ImageList(this.components);
             this.btnIconList128 = new System.Windows.Forms.ImageList(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
@@ -87,6 +87,15 @@
             this.btnAddSite.Text = "Add New Site";
             this.btnAddSite.UseVisualStyleBackColor = true;
             this.btnAddSite.Click += new System.EventHandler(this.btnAddSite_Click);
+            // 
+            // btnIconList32
+            // 
+            this.btnIconList32.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("btnIconList32.ImageStream")));
+            this.btnIconList32.TransparentColor = System.Drawing.Color.Transparent;
+            this.btnIconList32.Images.SetKeyName(0, "1361282347_32_monotone_cog_settings_gear.png");
+            this.btnIconList32.Images.SetKeyName(1, "1361282351_32_monotone_arrow_play_right_next.png");
+            this.btnIconList32.Images.SetKeyName(2, "1361282448_32_monotone_plus_add.png");
+            this.btnIconList32.Images.SetKeyName(3, "1361282488_32_upload_arrow_up.png");
             // 
             // lstSite
             // 
@@ -168,6 +177,11 @@
             this.btnSettings.Text = "Settings";
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 30000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // ImgList
             // 
@@ -423,15 +437,6 @@
             this.ImgList.Images.SetKeyName(247, "ZA.png");
             this.ImgList.Images.SetKeyName(248, "ZM.png");
             this.ImgList.Images.SetKeyName(249, "ZW.png");
-            // 
-            // btnIconList32
-            // 
-            this.btnIconList32.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("btnIconList32.ImageStream")));
-            this.btnIconList32.TransparentColor = System.Drawing.Color.Transparent;
-            this.btnIconList32.Images.SetKeyName(0, "1361282347_32_monotone_cog_settings_gear.png");
-            this.btnIconList32.Images.SetKeyName(1, "1361282351_32_monotone_arrow_play_right_next.png");
-            this.btnIconList32.Images.SetKeyName(2, "1361282448_32_monotone_plus_add.png");
-            this.btnIconList32.Images.SetKeyName(3, "1361282488_32_upload_arrow_up.png");
             // 
             // btnIconList128
             // 

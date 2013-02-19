@@ -119,9 +119,11 @@ namespace OpenXML
                         path += paths[j] + "\\";
                     }
 
+                    var htmlResut = html.ToStringNewLineOnAttributes().Replace("<p />", string.Empty);
+
                     File.WriteAllText(path + "/" + fileInfo.Name.Substring(0,
                         fileInfo.Name.Length - fileInfo.Extension.Length) + ".html",
-                        html.ToStringNewLineOnAttributes());
+                        htmlResut);
                 }
             }
             return imageCounter;
