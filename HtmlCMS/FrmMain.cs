@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Security.Permissions;
@@ -367,6 +368,24 @@ namespace HtmlCMS
             var frmSettings = new FrmSettings(setting);
             frmSettings.ShowDialog();
             frmSettings.Dispose();
+        }
+
+        private void grdList_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ShiftKey)
+            {
+                foreach (var selectedRow in grdList.SelectedRows)
+                {
+                    var dataRowViewItem = (selectedRow as DataGridViewRow);
+                    if (dataRowViewItem != null)
+                    {
+                        var item = (dataRowViewItem.DataBoundItem as Settings.SiteFileInfo);
+                        if (item != null)
+                            item.IsSelected = true;
+                    }
+                }
+                grdList.Refresh();
+            }
         }
     }
 }

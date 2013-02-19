@@ -110,6 +110,7 @@
             this.grdList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.grdList.Size = new System.Drawing.Size(446, 455);
             this.grdList.TabIndex = 11;
+            this.grdList.KeyUp += new System.Windows.Forms.KeyEventHandler(this.grdList_KeyUp);
             // 
             // tableLayoutPanel2
             // 
