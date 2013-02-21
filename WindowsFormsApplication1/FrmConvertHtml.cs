@@ -34,7 +34,7 @@ namespace WindowsFormsApplication1
             grdList.AutoGenerateColumns = true;
             grdList.ReadOnly = true;
 
-            if (setting.FileInfos.Where(w => w.Changed).Count() <= 0)
+            if (!setting.FileInfos.Where(w => w.Changed).Any())
                 MessageBox.Show("Değişen Dosya Yok");
         }
 
@@ -42,8 +42,10 @@ namespace WindowsFormsApplication1
         {
             foreach (var fileInfo in setting.FileInfos.Where(w => w.Changed).ToList())
             {
-                setting.ImageCounter = Utility.ConvertToHtml(Application.StartupPath, fileInfo.FilePath, setting.ImageCounter, "");
-                setting.FileInfos.FirstOrDefault(w => fileInfo.FilePath.Contains(w.FilePath)).Changed = false;
+                setting.ImageCounter = Utility.ConvertToHtml(Application.StartupPath, fileInfo.FilePath, setting.ImageCounter);
+                var info = setting.FileInfos.FirstOrDefault(w => fileInfo.FilePath.Contains(w.FilePath));
+                if (info != null)
+                    info.Changed = false;
             }
 
             Settings.SerializeToXml(setting);

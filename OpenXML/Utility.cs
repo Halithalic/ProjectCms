@@ -8,16 +8,13 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace OpenXML
 {
     public class Utility
     {
-        private static string maxWidthSetting;
-        public static int ConvertToHtml(string masterPath, string filePath, int imageCnt, string _maxWidthSetting)
+        public static int ConvertToHtml(string masterPath, string filePath, int imageCnt)
         {
-            maxWidthSetting = _maxWidthSetting;
             // This example shows the simplest conversion. No images are converted.
             // A cascading style sheet is not used.
             var fileName = filePath;
@@ -222,7 +219,7 @@ namespace OpenXML
                                         {
                                             Bitmap = bitmap,
                                             ImgStyleAttribute = new XAttribute(HtmlNoNamespace.style,
-                                                string.Format("width: {0}in; height: {1}in;" + maxWidthSetting,
+                                                string.Format("width: {0}in; height: {1}in;",
                                                     (float)extentCx / (float)ImageInfo.EmusPerInch,
                                                     (float)extentCy / (float)ImageInfo.EmusPerInch)),
                                             ContentType = contentType,

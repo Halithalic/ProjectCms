@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -14,8 +15,8 @@ namespace HtmlCMS
             public readonly List<Site> Sites = new List<Site>();
 
             public int ImageCounter { get; set; }
-            public string MaxWidthSetting { get; set; }
-            public bool LinkPushStyle { get; set; }
+            public bool LinkRel { get; set; }
+            public bool LinkTarget { get; set; }
         }
 
         public class Site
@@ -62,13 +63,13 @@ namespace HtmlCMS
 
         public static void CreatePath(string path, string folder)
         {
-            string createPath = Path.Combine(Application.StartupPath + path, folder);
+            var createPath = Path.Combine(Application.StartupPath + path, folder);
             Directory.CreateDirectory(createPath);
         }
 
         static public bool SerializeToXml(Setting setting)
         {
-            bool result = true;
+            var result = true;
             try
             {
                 var serializer = new XmlSerializer(typeof(Setting));
@@ -85,7 +86,7 @@ namespace HtmlCMS
             return result;
         }
 
-        static public Setting DeserializeFromXML()
+        static public Setting DeserializeFromXml()
         {
             var deserializer = new XmlSerializer(typeof(Setting));
             var fs = new FileStream(Application.StartupPath + "\\settings.xml", FileMode.OpenOrCreate);
@@ -97,6 +98,37 @@ namespace HtmlCMS
             fs.Dispose();
             GC.Collect();
             return setting;
+        }
+
+        public static string ToUrlSlug(this string text)
+        {
+
+            return Regex.Replace(
+
+                        Regex.Replace(
+
+                            Regex.Replace(
+
+                                text.Trim().ToLower()
+
+                                       .Replace("ö", "o")
+
+                                       .Replace("ç", "c")
+
+                                       .Replace("ş", "s")
+
+                                       .Replace("ı", "i")
+
+                                       .Replace("ğ", "g")
+
+                                       .Replace("ü", "u"),
+
+                            @"\s+", " "), // multiple spaces to one space
+
+                            @"\s", "-"), // spaces to hypens
+
+                            @"[^a-z0-9\s-]", string.Empty); // removing invalid chars
+
         }
 
     }

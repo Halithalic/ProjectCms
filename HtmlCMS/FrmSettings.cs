@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace HtmlCMS
 {
     public partial class FrmSettings : Form
     {
-        private Settings.Setting _setting;
+        private readonly Settings.Setting _setting;
 
         public FrmSettings()
         {
@@ -22,22 +15,20 @@ namespace HtmlCMS
         public FrmSettings(Settings.Setting setting)
         {
             InitializeComponent();
-            this._setting = setting;
+            _setting = setting;
         }
 
         private void FrmSettings_Load(object sender, EventArgs e)
         {
-            txtMaxWidth.Text = _setting.MaxWidthSetting;
-            chkLinkPushStyle.Checked = _setting.LinkPushStyle;
+            chkLinkTarget.Checked = _setting.LinkTarget;
+            chkLinkrel.Checked = _setting.LinkRel;
 
-            if (string.IsNullOrEmpty(txtMaxWidth.Text))
-                txtMaxWidth.Text = "max-width:755px;";
         }
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
-            _setting.MaxWidthSetting = txtMaxWidth.Text.Trim();
-            _setting.LinkPushStyle = chkLinkPushStyle.Checked;
+            _setting.LinkTarget = chkLinkTarget.Checked;
+            _setting.LinkRel = chkLinkrel.Checked;
             if (Settings.SerializeToXml(_setting))
                 this.Close();
             else

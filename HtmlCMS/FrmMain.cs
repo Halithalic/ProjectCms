@@ -20,7 +20,7 @@ namespace HtmlCMS
         public FrmMain()
         {
             InitializeComponent();
-            setting = Settings.DeserializeFromXML() ?? new Settings.Setting();
+            setting = Settings.DeserializeFromXml() ?? new Settings.Setting();
         }
 
         private void FrmMain_Load(object sender, EventArgs e)
@@ -33,6 +33,7 @@ namespace HtmlCMS
             }
             timer1.Enabled = true;
             FrmMain_Resize(null, null);
+            btnRegenerate.Enabled = false;
         }
 
         private void LoadList()
@@ -324,6 +325,9 @@ namespace HtmlCMS
             newSiteWizard.ShowDialog();
             newSiteWizard.Dispose();
             LoadSites();
+
+            if (lstSite.Items.Count > 0)
+                lstSite.SelectedIndex = lstSite.Items.Count - 1;
         }
 
         private void lstSite_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -358,7 +362,7 @@ namespace HtmlCMS
         {
             foreach (var fileInfo in selectedSite.SiteFileInfos.Where(w => w.Changed && w.IsSelected))
             {
-                setting.ImageCounter = Utility.ConvertToHtml(Application.StartupPath, fileInfo.FilePath, setting.ImageCounter, setting.MaxWidthSetting);
+                setting.ImageCounter = Utility.ConvertToHtml(Application.StartupPath, fileInfo.FilePath, setting.ImageCounter);
                 var siteFileInfo = selectedSite.SiteFileInfos.FirstOrDefault(w => fileInfo.FilePath.Contains(w.FilePath));
                 if (siteFileInfo != null)
                 {
@@ -374,9 +378,14 @@ namespace HtmlCMS
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
+            var target = setting.LinkTarget;
+            var linkRel = setting.LinkRel;
             var frmSettings = new FrmSettings(setting);
             frmSettings.ShowDialog();
             frmSettings.Dispose();
+
+            if (target != setting.LinkTarget)
+                btnRegenerate.Enabled = true;
         }
 
         private void grdList_KeyUp(object sender, KeyEventArgs e)

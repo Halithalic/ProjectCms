@@ -37,11 +37,13 @@
             this.grdList = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnConvert = new System.Windows.Forms.Button();
-            this.btnUpload = new System.Windows.Forms.Button();
-            this.btnSettings = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.ImgList = new System.Windows.Forms.ImageList(this.components);
             this.btnIconList128 = new System.Windows.Forms.ImageList(this.components);
+            this.btnSettings = new System.Windows.Forms.Button();
+            this.btnUpload = new System.Windows.Forms.Button();
+            this.btnRegenerate = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdList)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
@@ -69,7 +71,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(905, 615);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1130, 616);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // btnAddSite
@@ -79,10 +81,10 @@
             this.btnAddSite.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAddSite.ImageKey = "1361282448_32_monotone_plus_add.png";
             this.btnAddSite.ImageList = this.btnIconList32;
-            this.btnAddSite.Location = new System.Drawing.Point(546, 34);
+            this.btnAddSite.Location = new System.Drawing.Point(681, 34);
             this.btnAddSite.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddSite.Name = "btnAddSite";
-            this.btnAddSite.Size = new System.Drawing.Size(308, 53);
+            this.btnAddSite.Size = new System.Drawing.Size(387, 53);
             this.btnAddSite.TabIndex = 9;
             this.btnAddSite.Text = "Add New Site";
             this.btnAddSite.UseVisualStyleBackColor = true;
@@ -105,10 +107,10 @@
             this.lstSite.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lstSite.FormattingEnabled = true;
             this.lstSite.ItemHeight = 16;
-            this.lstSite.Location = new System.Drawing.Point(546, 125);
+            this.lstSite.Location = new System.Drawing.Point(681, 125);
             this.lstSite.Margin = new System.Windows.Forms.Padding(4);
             this.lstSite.Name = "lstSite";
-            this.lstSite.Size = new System.Drawing.Size(308, 453);
+            this.lstSite.Size = new System.Drawing.Size(387, 454);
             this.lstSite.TabIndex = 10;
             this.lstSite.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lstSite_MouseClick);
             this.lstSite.SelectedIndexChanged += new System.EventHandler(this.lstSite_SelectedIndexChanged);
@@ -118,65 +120,43 @@
             // 
             this.grdList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdList.Location = new System.Drawing.Point(48, 124);
+            this.grdList.Location = new System.Drawing.Point(59, 124);
             this.grdList.Name = "grdList";
             this.grdList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdList.Size = new System.Drawing.Size(446, 455);
+            this.grdList.Size = new System.Drawing.Size(559, 456);
             this.grdList.TabIndex = 11;
             this.grdList.KeyUp += new System.Windows.Forms.KeyEventHandler(this.grdList_KeyUp);
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel2.Controls.Add(this.btnConvert, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnUpload, 1, 0);
+            this.tableLayoutPanel2.ColumnCount = 4;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.Controls.Add(this.btnRegenerate, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnUpload, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnSettings, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnConvert, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(48, 33);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(59, 33);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(446, 55);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(559, 55);
             this.tableLayoutPanel2.TabIndex = 12;
             // 
             // btnConvert
             // 
             this.btnConvert.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnConvert.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConvert.Location = new System.Drawing.Point(3, 3);
+            this.btnConvert.Location = new System.Drawing.Point(142, 3);
             this.btnConvert.Name = "btnConvert";
-            this.btnConvert.Size = new System.Drawing.Size(142, 49);
+            this.btnConvert.Size = new System.Drawing.Size(133, 49);
             this.btnConvert.TabIndex = 13;
             this.btnConvert.Text = "Generate";
             this.btnConvert.UseVisualStyleBackColor = true;
             this.btnConvert.Click += new System.EventHandler(this.btnConvert_Click);
-            // 
-            // btnUpload
-            // 
-            this.btnUpload.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnUpload.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpload.Location = new System.Drawing.Point(151, 3);
-            this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(142, 49);
-            this.btnUpload.TabIndex = 14;
-            this.btnUpload.Text = "Upload";
-            this.btnUpload.UseVisualStyleBackColor = true;
-            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSettings.Location = new System.Drawing.Point(299, 3);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(144, 49);
-            this.btnSettings.TabIndex = 15;
-            this.btnSettings.Text = "Settings";
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // timer1
             // 
@@ -447,11 +427,48 @@
             this.btnIconList128.Images.SetKeyName(2, "1361282448_monotone_plus_add.png");
             this.btnIconList128.Images.SetKeyName(3, "1361282488_upload_arrow_up.png");
             // 
+            // btnSettings
+            // 
+            this.btnSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSettings.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSettings.Location = new System.Drawing.Point(281, 3);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(133, 49);
+            this.btnSettings.TabIndex = 16;
+            this.btnSettings.Text = "Settings";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
+            // btnUpload
+            // 
+            this.btnUpload.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnUpload.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnUpload.Location = new System.Drawing.Point(420, 3);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(136, 49);
+            this.btnUpload.TabIndex = 17;
+            this.btnUpload.Text = "Upload";
+            this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
+            // 
+            // btnRegenerate
+            // 
+            this.btnRegenerate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRegenerate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRegenerate.Location = new System.Drawing.Point(3, 3);
+            this.btnRegenerate.Name = "btnRegenerate";
+            this.btnRegenerate.Size = new System.Drawing.Size(133, 49);
+            this.btnRegenerate.TabIndex = 18;
+            this.btnRegenerate.Text = "ReGenerate";
+            this.toolTip1.SetToolTip(this.btnRegenerate, "All files will be updated to apply changed settings");
+            this.btnRegenerate.UseVisualStyleBackColor = true;
+            this.btnRegenerate.Click += new System.EventHandler(this.btnConvert_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(905, 615);
+            this.ClientSize = new System.Drawing.Size(1130, 616);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -476,11 +493,13 @@
         private System.Windows.Forms.DataGridView grdList;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button btnConvert;
-        private System.Windows.Forms.Button btnUpload;
-        private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.ImageList ImgList;
         private System.Windows.Forms.ImageList btnIconList32;
         private System.Windows.Forms.ImageList btnIconList128;
+        private System.Windows.Forms.Button btnUpload;
+        private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.Button btnRegenerate;
+        private System.Windows.Forms.ToolTip toolTip1;
 
     }
 }
